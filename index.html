@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<title>Cat Clicker</title>
+</head>
+<body>
+<h1>Click the cats and see numbers go up:</h1>
+<p id = "number1"> Number clicked: </p>
+<img id = "cat1" src = "silvia.jpg" alt = "cat">
+<p id = "number2"> Number clicked: </p>
+<img id = "cat2" src = "golphy.jpg" alt = "cat">
+
+
+<script>
+	var num1 = 0, num2 = 0;
+	$("#cat1").click(function(){
+		num1++; 
+		$("#number1").text("Number clicked: "+ num1);
+	});
+	$("#cat2").click(function(){
+		num2++; 
+		$("#number2").text("Number clicked: "+ num2);
+	});
+</script>
+
+<script>
+
+	var tnums = ["one",2,"three",4,"five"];
+
+	for (i=0; i<tnums.length; i++){
+		var tnum = tnums[i];
+		console.log(tnum);
+		var telem = document.createElement('div');
+		var telemContent = document.createTextNode (tnum);		
+		// telem.textContent = tnum;
+		telem.appendChild(telemContent);
+		document.body.appendChild(telem);
+
+		//click event
+		telem.addEventListener('click',(function(tnumCopy){
+				return function(){
+
+					console.log(tnumCopy);
+				};
+			})(tnum));
+		// elem.addEventListener('click', (function(numCopy) {
+  //       return function() {
+  //           alert(numCopy);
+  //       };
+  //   })(num));
+
+	}
+
+</script>
+<script>
+// 	// clear the screen for testing
+// document.body.innerHTML = '';
+
+// var nums = [1,2,3];
+
+// // Let's loop over the numbers in our array
+// for (var i = 0; i < nums.length; i++) {
+
+//     // This is the number we're on...
+//     var num = nums[i];
+
+//     // We're creating a DOM element for the number
+//     var elem = document.createElement('div');
+//     elem.textContent = num;
+
+//     // ... and when we click, alert the value of `num`
+//     elem.addEventListener('click', (function(numCopy) {
+//         return function() {
+//             alert(numCopy);
+//         };
+//     })(num));
+
+//     document.body.appendChild(elem);
+// };
+
+
+</script>
+
+</body>
+</html>
