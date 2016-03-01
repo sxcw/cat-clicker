@@ -17,6 +17,10 @@
 	main {
 		background-color: #efd6d5;
 		border-radius: 10px;
+		padding: 15px;
+	}
+	img {
+	max-width: 100%;
 	}
 	#catSelection {
 		width: 200px;
@@ -35,9 +39,8 @@
 	#displayArea {
 		width: 300px;
 		height: 300px;
-		border: 2px solid silver;
 		display: inline-block;
-
+		font-size: 1.2em;
 	}
 	</style>
 	<title>Cat Clicker</title>
@@ -46,30 +49,19 @@
 <h1>Select a Cat:</h1>
 <main> 
 <div id = "catSelection"></div>
-<div id = "displayArea">
+<div id = "displayArea"> 
+	<span id= "hint"> Please select a cat</span>
 	<div id = "catName"></div>
 	<div id = "catPic"></div>
 	<div id = "catNumClick"></div>
 </div>
 </main>
-<!-- <p id = "number1"> Number clicked: </p>
-<img id = "cat1" src = "silvia.jpg" alt = "cat">
-<p id = "number2"> Number clicked: </p>
-<img id = "cat2" src = "golphy.jpg" alt = "cat"> -->
-
 
 <script>
-	// var num1 = 0, num2 = 0;
-	// $("#cat1").click(function(){
-	// 	num1++; 
-	// 	$("#number1").text("Number clicked: "+ num1);
-	// });
-	// $("#cat2").click(function(){
-	// 	num2++; 
-	// 	$("#number2").text("Number clicked: "+ num2);
-	// });
+	// info in  catSelection 
 	var cats = ["Silvia", "Golphy", "Cutie", "Sadie", "Naughty"];
 
+	// info in displayArea
 	var catInfo = {
 			"Silvia":
 				{
@@ -116,78 +108,33 @@
 		// create display area
 		var display = document.createElement('div');
 		display.className = 'displayArea';
-		document.body.appendChild(display);
 
 		// add event listener 
 		catElementLink.addEventListener('click', function(){
 
+			//hide the hint
+			$("#hint").hide();
 			//get id
 			var catID = $(this).attr('id');
-			console.log(catID);
-			console.log(cat);
-			console.log(catInfo[catID]);
-			console.log(catInfo.catID.pic);
+
+			// clear out previous text
+			$("#catName").text("");
+			$("#catPic").text("");
+			$("#catNumClick").text("");
+
+			// append name, pic and click count
 			$("#catName").append("Cat name: " +catID);
+			$("#catNumClick").append("Number of clicks: "+ catInfo[catID].numClick); 
+			$("#catPic").append('<img src="'+  catInfo[catID].pic +'">');
 
-
-			$("#catPic").append(catInfo.catsbio[i].pic);
-			$("#catNumClick").append("Number of clicks: "+ catInfo.catsbio[i].numClick);
+			// clear out previous click count text and increment the click count number when user clicks on the image
+			document.getElementById("catPic").onclick = function(){
+				$("#catNumClick").text("");
+				catInfo[catID].numClick++;
+				$("#catNumClick").append("Number of clicks: "+ catInfo[catID].numClick);
+			}
 		});
-
 	}
-
-</script>
-
-<script>
-
-	// var tnums = ["one",2,"three",4,"five"];
-
-	// for (i=0; i<tnums.length; i++){
-	// 	var tnum = tnums[i];
-	// 	console.log(tnum);
-	// 	var telem = document.createElement('div');
-	// 	var telemContent = document.createTextNode (tnum);		
-	// 	// telem.textContent = tnum;
-	// 	telem.appendChild(telemContent);
-	// 	document.body.appendChild(telem);
-
-	// 	//click event
-	// 	telem.addEventListener('click',(function(tnumCopy){
-	// 			return function(){
-
-	// 				console.log(tnumCopy);
-	// 			};
-	// 		})(tnum));
-
-	// }
-
-</script>
-<script>
-// 	// clear the screen for testing
-// document.body.innerHTML = '';
-
-// var nums = [1,2,3];
-
-// // Let's loop over the numbers in our array
-// for (var i = 0; i < nums.length; i++) {
-
-//     // This is the number we're on...
-//     var num = nums[i];
-
-//     // We're creating a DOM element for the number
-//     var elem = document.createElement('div');
-//     elem.textContent = num;
-
-//     // ... and when we click, alert the value of `num`
-//     elem.addEventListener('click', (function(numCopy) {
-//         return function() {
-//             alert(numCopy);
-//         };
-//     })(num));
-
-//     document.body.appendChild(elem);
-// };
-
 
 </script>
 
