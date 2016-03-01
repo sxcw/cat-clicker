@@ -3,55 +3,157 @@
 <head>
 	<meta charset="UTF-8">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<style>
+	html {
+	  -webkit-box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  box-sizing: border-box;
+	}
+	*, *:before, *:after {
+	  -webkit-box-sizing: inherit;
+	  -moz-box-sizing: inherit;
+	  box-sizing: inherit;
+	  }
+	main {
+		background-color: #efd6d5;
+		border-radius: 10px;
+	}
+	#catSelection {
+		width: 200px;
+		height: 300px;
+		display: inline-block;
+		margin-right: 20px; 
+		vertical-align: top;
+	}
+	.catSection {
+		margin: 20px;
+		font-size: 1.3em;
+	}
+	.catSection a {
+		text-decoration: none;
+	}
+	#displayArea {
+		width: 300px;
+		height: 300px;
+		border: 2px solid silver;
+		display: inline-block;
+
+	}
+	</style>
 	<title>Cat Clicker</title>
 </head>
 <body>
-<h1>Click the cats and see numbers go up:</h1>
-<p id = "number1"> Number clicked: </p>
+<h1>Select a Cat:</h1>
+<main> 
+<div id = "catSelection"></div>
+<div id = "displayArea">
+	<div id = "catName"></div>
+	<div id = "catPic"></div>
+	<div id = "catNumClick"></div>
+</div>
+</main>
+<!-- <p id = "number1"> Number clicked: </p>
 <img id = "cat1" src = "silvia.jpg" alt = "cat">
 <p id = "number2"> Number clicked: </p>
-<img id = "cat2" src = "golphy.jpg" alt = "cat">
+<img id = "cat2" src = "golphy.jpg" alt = "cat"> -->
 
 
 <script>
-	var num1 = 0, num2 = 0;
-	$("#cat1").click(function(){
-		num1++; 
-		$("#number1").text("Number clicked: "+ num1);
-	});
-	$("#cat2").click(function(){
-		num2++; 
-		$("#number2").text("Number clicked: "+ num2);
-	});
+	// var num1 = 0, num2 = 0;
+	// $("#cat1").click(function(){
+	// 	num1++; 
+	// 	$("#number1").text("Number clicked: "+ num1);
+	// });
+	// $("#cat2").click(function(){
+	// 	num2++; 
+	// 	$("#number2").text("Number clicked: "+ num2);
+	// });
+	var cats = ["Silvia", "Golphy", "Cutie", "Sadie", "Naughty"];
+
+	var catInfo = {
+			"Silvia":
+				{
+					"pic" : "silvia.jpg",
+					"numClick" : 0
+				},
+			"Golphy":
+				{
+					"pic" : "golphy.jpg",
+					"numClick" : 0
+				},
+			"Cutie":
+				{
+					"pic" : "cutie.jpg",
+					"numClick" : 0
+				},
+			"Sadie": 
+				{
+					"pic" : "sadie.jpg",
+					"numClick" : 0
+				},
+			"Naughty": 
+				{
+					"pic" : "naughty.jpg",
+					"numClick" : 0
+				}						
+		};
+	for (i = 0; i < cats.length; i++) {
+		var cat = cats[i];
+
+		// create <div>
+		var catElement = document.createElement('div');
+		catElement.className = 'catSection';
+
+		// create <a>
+		var catElementLink = document.createElement('a');		
+		catElementLink.textContent = cat;
+
+		catElement.appendChild(catElementLink);
+		catElementLink.href = "#";
+		$("#catSelection").append(catElement);
+
+		// create display area
+		var display = document.createElement('div');
+		display.className = 'displayArea';
+		document.body.appendChild(display);
+
+		// add event listener 
+		catElementLink.addEventListener('click', function(){
+			console.log(i);
+			console.log(catInfo.catsbio[i]);
+			var catID = document.getElementById
+			$("#catName").append("Cat name: " +catInfo.catsbio[i].name);
+
+			$("#catPic").append(catInfo.catsbio[i].pic);
+			$("#catNumClick").append("Number of clicks: "+ catInfo.catsbio[i].numClick);
+		});
+
+	}
+
 </script>
 
 <script>
 
-	var tnums = ["one",2,"three",4,"five"];
+	// var tnums = ["one",2,"three",4,"five"];
 
-	for (i=0; i<tnums.length; i++){
-		var tnum = tnums[i];
-		console.log(tnum);
-		var telem = document.createElement('div');
-		var telemContent = document.createTextNode (tnum);		
-		// telem.textContent = tnum;
-		telem.appendChild(telemContent);
-		document.body.appendChild(telem);
+	// for (i=0; i<tnums.length; i++){
+	// 	var tnum = tnums[i];
+	// 	console.log(tnum);
+	// 	var telem = document.createElement('div');
+	// 	var telemContent = document.createTextNode (tnum);		
+	// 	// telem.textContent = tnum;
+	// 	telem.appendChild(telemContent);
+	// 	document.body.appendChild(telem);
 
-		//click event
-		telem.addEventListener('click',(function(tnumCopy){
-				return function(){
+	// 	//click event
+	// 	telem.addEventListener('click',(function(tnumCopy){
+	// 			return function(){
 
-					console.log(tnumCopy);
-				};
-			})(tnum));
-		// elem.addEventListener('click', (function(numCopy) {
-  //       return function() {
-  //           alert(numCopy);
-  //       };
-  //   })(num));
+	// 				console.log(tnumCopy);
+	// 			};
+	// 		})(tnum));
 
-	}
+	// }
 
 </script>
 <script>
