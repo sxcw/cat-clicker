@@ -105,7 +105,8 @@
 		catElement.className = 'catSection';
 
 		// create <a>
-		var catElementLink = document.createElement('a');		
+		var catElementLink = document.createElement('a');	
+		catElementLink.id = cats[i];	
 		catElementLink.textContent = cat;
 
 		catElement.appendChild(catElementLink);
@@ -119,10 +120,15 @@
 
 		// add event listener 
 		catElementLink.addEventListener('click', function(){
-			console.log(i);
-			console.log(catInfo.catsbio[i]);
-			var catID = document.getElementById
-			$("#catName").append("Cat name: " +catInfo.catsbio[i].name);
+
+			//get id
+			var catID = $(this).attr('id');
+			console.log(catID);
+			console.log(cat);
+			console.log(catInfo[catID]);
+			console.log(catInfo.catID.pic);
+			$("#catName").append("Cat name: " +catID);
+
 
 			$("#catPic").append(catInfo.catsbio[i].pic);
 			$("#catNumClick").append("Number of clicks: "+ catInfo.catsbio[i].numClick);
