@@ -62,3 +62,12 @@
 </section>
 </body>
 </html>
+
+for(i = 0; i< this.catLink.length; i++){
+				(this.catLink[i]).addEventListener('click',(function(){
+					
+					return function(){
+						console.log("link"+i);
+					}
+				})(this.catLink[i]));
+			}
