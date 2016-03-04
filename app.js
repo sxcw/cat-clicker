@@ -1,147 +1,88 @@
 $(function(){
+
 	var model = {
 
-		cats: ["Silvia", "Golphy", "Cutie", "Sadie", "Naughty"],
+		cats: [
+			{
+				id : "Silvia",
+				pic : "silvia.jpg",
+				clickCount : 0
+			},
+			{
+				id : "Golphy",
+				pic : "golphy.jpg",
+				clickCount : 0
+			}
+		]
+		
 
-			// data in displayArea
-		catInfo: {
-			"Silvia":{
-					"pic" : "silvia.jpg",
-					"numClick" : 0
-			},
-			"Golphy":{
-					"pic" : "golphy.jpg",
-					"numClick" : 0
-			},
-			"Cutie":{
-					"pic" : "cutie.jpg",
-					"numClick" : 0
-			},
-			"Sadie": {
-					"pic" : "sadie.jpg",
-					"numClick" : 0
-			},
-			"Naughty": {
-					"pic" : "naughty.jpg",
-					"numClick" : 0
-			}						
-		}	
 	};
 
 	var octopus = {
-
-		init: function(){			
-			catListView.init();
-			catView.init();
-		},
-
-		getCats: function(){
-			return model.cats;
-		},
-
-		getCatInfo: function(){
-			return model.catInfo;
-		},
-
-		incrementCounter: function(catName){
-			// var cats = getCats();
-			// var catInfo = getCatInfo();
-			// for (i = 0; i < cats.length; i++) {		
-			// 	// clear out previous click count text and increment the click count number when user clicks on the image
-			// 	document.getElementById("catPic").onclick = function(){
-			// 		$("#catNumClick").text("");
-			// 		catInfo[catID].numClick++;
-			// 		$("#catNumClick").append("Number of clicks: "+ catInfo[catID].numClick);
-			// 	}
-			// }
-			return model.catInfo[catName].numClick++; 
-
-		},
-	};
-
-	var catListView = {
-		// cats: undefined,
-		// catInfo: undefined,
-		// init gets called once
+		// init runs once
 		init: function(){
-			this.cats = octopus.getCats();
-			this.catInfo = octopus.getCatInfo();
-			console.log(this.catInfo);
-			this.render();							
+			view.init();
 		},
-
-		render: function(){
-			console.log(this);
-			var catListView = this; 
-			//create catSelection and displayArea
-			for (i = 0; i < this.cats.length; i++) {
-				var cat = this.cats[i];
-
-				// create <div>
-				var catElement = document.createElement('div');
-				catElement.className = 'catSection';
-
-				// create <a>
-				var catElementLink = document.createElement('a');	
-				catElementLink.id = this.cats[i];	
-				catElementLink.textContent = cat;
-
-				catElement.appendChild(catElementLink);
-				catElementLink.href = "#";
-				$("#catSelection").append(catElement);	
-
-				catElementLink.addEventListener('click', function(){
-					//hide the hint
-
-					$("#hint").hide();
-					//get id
-					var catID = $(this).attr('id');
-					// console.log("catID is "+ catID);
-					// console.log(catListView);
-					// console.log(catListView.catInfo[catID]);
-
-					// clear out previous text
-					$("#catName").text("");
-					$("#catPic").text("");
-					$("#catNumClick").text("");
-
-					// append name, pic and click count
-					$("#catName").append("Cat name: " +catID);
-					// console.log(this.catInfo);
-					$("#catNumClick").append("Number of clicks: "+ catListView.catInfo[catID].numClick); 
-					$("#catPic").append('<img src="'+  catListView.catInfo[catID].pic +'">');
-				})									
-			}	
+		// return number of cats
+		getNumOfCats: function(){
+			return model.cats.length;
+		},
+		// return a cats array object, cats[0] is Silvia
+		getCatInfo: function(num){ 
+			return model.cats[num];
+		},
+		//return clickCount of a cat
+		getCount: function(num){
+			return model.cats[num].clickCount;
 		}
+
 	};
 
-	var catView = {
-
+	var view = {
+		// set up menu and display area
 		init: function(){
-			// create display area
-			var display = document.createElement('div');
-			display.className = 'displayArea';
 
-			// repetition!!!
-			// this.cats = octopus.getCats();
-			// this.catInfo = octopus.getCatInfo();
-			// this.catElementLink = document.createElement('a');
+			this.linkNameArray =[];
+			var catNum = octopus.getNumOfCats(); // number of menu items
+			this.catName = document.getElementById("catName"); //store DOM into variables for easy access
+			this.catPic = document.getElementById("catPic");
+			this.catNumClick = document.getElementById("catNumClick");
+
+			// create menu 
+			for (i = 0; i<catNum; i++){
+				this.linkName = octopus.getCatInfo(i).id;
+				$("#catSelection").append("<li><a href = '#' class = 'catLink'>" + this.linkName + "</a></li>");
+				this.linkNameArray.push(this.linkName);
+			}
+
+			// display Silvia initially 
+			$(this.catName).append("Cat Name: "+ octopus.getCatInfo(0).id);
+			$(this.catPic).append("<img src='images/"+ octopus.getCatInfo(0).pic+"'>");
+			$(this.catNumClick).append("Number of Clicks: "+octopus.getCount(0));
+			
 			this.render();
 		},
+		// render 
+		render: function(){
 
-		render: function(){	
-			// this.catInfo = octopus.getCatInfo();
-			// var catID = octopus.getCats();
-			// console.log("catID is:"+ catID);
-			// var catPic = this.catInfo["catID"].pic;
-			var counter = document.getElementById("catNumClick");
-			console.log(this);
-			$("#catPic")[0].addEventListener('click', function(){
-				$(counter).text("");
-				$(counter).append("Number of clicks: " + octopus.incrementCounter(catName));
-			});
-		}
-	}	
+			// I want "this" points to the same "this" as in "this.catName" where "this" refers to "view" itself. It makes sense to name it "view"
+			var view = this; 
+			for(var i = 0; i< this.linkNameArray.length; i++){
+				(function(){
+					var index = i;
+
+					$(".catLink")[index].addEventListener('click',function(){
+						console.log(index);
+						console.log(view);
+						$(view.catName).append("Cat Name: "+ octopus.getCatInfo(index).id);
+						$(view.catPic).append("<img src='images/"+ octopus.getCatInfo(index).pic+"'>");
+						$(view.catNumClick).append("Number of Clicks: "+octopus.getCount(index));
+					});
+				}());
+			}
+
+		}				
+	};
 
 	octopus.init();
-});	
+});

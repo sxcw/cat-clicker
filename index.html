@@ -15,7 +15,7 @@
 	  -moz-box-sizing: inherit;
 	  box-sizing: inherit;
 	  }
-	main {
+	section {
 		background-color: #efd6d5;
 		border-radius: 10px;
 		padding: 15px;
@@ -29,6 +29,7 @@
 		display: inline-block;
 		margin-right: 20px; 
 		vertical-align: top;
+		list-style: none;
 	}
 	.catSection {
 		margin: 20px;
@@ -49,14 +50,15 @@
 
 <body>
 <h1>Select a Cat:</h1>
-<main> 
-<div id = "catSelection"></div>
-<div id = "displayArea"> 
-	<span id= "hint"> Please select a cat</span>
-	<div id = "catName"></div>
-	<div id = "catPic"></div>
-	<div id = "catNumClick"></div>
-</div>
-</main>
+<section> 
+	<ul id = "catSelection">
+		<li><a href = "#"></a></li>
+	</ul>
+	<div id = "displayArea"> 
+		<div id = "catName"></div>
+		<div id = "catPic"></div>
+		<div id = "catNumClick"></div>
+	</div>
+</section>
 </body>
 </html>
